@@ -67,13 +67,13 @@ namespace cniapi.DAL
         [StringLength(32)]
         public string PaymentComment { get; set; }
 
-        public float? PastDue { get; set; }
+        public double? PastDue { get; set; }
 
-        public float? CurrentDue { get; set; }
+        public double? CurrentDue { get; set; }
 
-        public float? TotalDue { get; set; }
+        public double? TotalDue { get; set; }
 
-        public float? BudgetPymtAmt { get; set; }
+        public double? BudgetPymtAmt { get; set; }
 
         [StringLength(1)]
         public string DraftActive { get; set; }
