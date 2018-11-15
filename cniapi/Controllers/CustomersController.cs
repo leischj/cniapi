@@ -32,5 +32,12 @@ namespace cniapi.Controllers
         {
             return _customersBll.Read(id);
         }
+
+        [HttpGet]
+        [Route("{id}/transactions")]
+        public IEnumerable<History> GetTransactions(int id)
+        {
+            return _customersBll.ReadHistory(id);
+        }
     }
 }

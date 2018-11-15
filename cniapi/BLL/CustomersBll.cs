@@ -36,5 +36,18 @@ namespace cniapi.BLL
                 return customer;
             }
         }
+
+        public IEnumerable<History> ReadHistory(int id)
+        {
+            using (var db = DbDelegate())
+            {
+                IEnumerable<HistoryDAL> result = db.Set<HistoryDAL>().Where(c => c.CustNum == id);
+
+                IEnumerable<History> returnList = Mapper.Map<IEnumerable<HistoryDAL>, IEnumerable<History>>(
+                    (result ?? throw new InvalidOperationException()).ToList());
+
+                return returnList;
+            }
+        }
     }
 }

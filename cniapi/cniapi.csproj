@@ -177,10 +177,9 @@
     <Compile Include="BLL\AutoMapperConfiguration.Customer.cs" />
     <Compile Include="BLL\CustomersBll.cs" />
     <Compile Include="Controllers\CustomersController.cs" />
-    <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="DAL\CniAppContext.cs" />
     <Compile Include="DAL\CustomerDAL.cs" />
+    <Compile Include="DAL\HistoryDAL.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
