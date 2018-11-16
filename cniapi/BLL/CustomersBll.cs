@@ -62,5 +62,18 @@ namespace cniapi.BLL
                 return returnList;
             }
         }
+
+        public IEnumerable<Service> ReadServices(int id)
+        {
+            using (var db = DbDelegate())
+            {
+                IEnumerable<ServiceDAL> result = db.Set<ServiceDAL>().Where(c => c.CustNum == id).OrderBy(o => o.SrvcId);
+
+                IEnumerable<Service> returnList = Mapper.Map<IEnumerable<ServiceDAL>, IEnumerable<Service>>(
+                    (result ?? throw new InvalidOperationException()).ToList());
+
+                return returnList;
+            }
+        }
     }
 }

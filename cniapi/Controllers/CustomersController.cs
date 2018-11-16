@@ -46,5 +46,12 @@ namespace cniapi.Controllers
         {
             return _customersBll.ReadPmtEntries(id);
         }
+
+        [HttpGet]
+        [Route("{id}/services")]
+        public IEnumerable<Service> GetServices(int id)
+        {
+            return _customersBll.ReadServices(id);
+        }
     }
 }

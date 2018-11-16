@@ -180,7 +180,8 @@
     <Compile Include="DAL\CniAppContext.cs" />
     <Compile Include="DAL\CustomerDAL.cs" />
     <Compile Include="DAL\HistoryDAL.cs" />
-	<Compile Include="DAL\PmtEntryDAL.cs" />
+    <Compile Include="DAL\PmtEntryDAL.cs" />
+    <Compile Include="DAL\ServiceDAL.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
