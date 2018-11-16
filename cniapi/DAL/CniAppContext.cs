@@ -18,5 +18,7 @@ namespace cniapi.DAL
         public virtual DbSet<CustomerDAL> Customers { get; set; }
 
         public virtual DbSet<HistoryDAL> History { get; set; }
+
+        public virtual DbSet<PmtEntryDAL> PmtEntry { get; set; }
     }
 }

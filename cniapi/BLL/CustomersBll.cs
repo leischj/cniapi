@@ -49,5 +49,18 @@ namespace cniapi.BLL
                 return returnList;
             }
         }
+
+        public IEnumerable<PmtEntry> ReadPmtEntries(int id)
+        {
+            using (var db = DbDelegate())
+            {
+                IEnumerable<PmtEntryDAL> result = db.Set<PmtEntryDAL>().Where(c => c.CustNum == id);
+
+                IEnumerable<PmtEntry> returnList = Mapper.Map<IEnumerable<PmtEntryDAL>, IEnumerable<PmtEntry>>(
+                    (result ?? throw new InvalidOperationException()).ToList());
+
+                return returnList;
+            }
+        }
     }
 }
