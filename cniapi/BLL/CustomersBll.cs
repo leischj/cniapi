@@ -91,13 +91,13 @@ namespace cniapi.BLL
             }
         }
 
-        public IEnumerable<int> ReadRoutes()
+        public IEnumerable<int?> ReadRoutes()
         {
             using (var db = DbDelegate())
             {
-
-                var x = db.Set<CustomerDAL>().Select(r => new { r.Route }).Distinct();
-                return null;
+                IEnumerable<int?> set =  db.Set<CustomerDAL>().Select(r => r.Route).Distinct().ToList();
+                // var x = db.Set<CustomerDAL>().Select(r => new { r.Route }).Distinct();
+                return set;
             }
         }
     }
