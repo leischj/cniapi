@@ -54,7 +54,7 @@ namespace cniapi.BLL
         {
             using (var db = DbDelegate())
             {
-                IEnumerable<PmtEntryDAL> result = db.Set<PmtEntryDAL>().Where(c => c.CustNum == id);
+                IEnumerable<PmtEntryDAL> result = db.Set<PmtEntryDAL>().Where(c => c.CustNum == id && c.Status != 0).OrderByDescending(o => o.CreateDate);
 
                 IEnumerable<PmtEntry> returnList = Mapper.Map<IEnumerable<PmtEntryDAL>, IEnumerable<PmtEntry>>(
                     (result ?? throw new InvalidOperationException()).ToList());
