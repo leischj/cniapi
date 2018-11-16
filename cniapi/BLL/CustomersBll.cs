@@ -67,7 +67,7 @@ namespace cniapi.BLL
         {
             using (var db = DbDelegate())
             {
-                IEnumerable<ServiceDAL> result = db.Set<ServiceDAL>().Where(c => c.CustNum == id).OrderBy(o => o.SrvcId);
+                IEnumerable<ServiceDAL> result = db.Set<ServiceDAL>().Where(c => c.CustNum == id).OrderBy(o => o.SrvcType);
 
                 IEnumerable<Service> returnList = Mapper.Map<IEnumerable<ServiceDAL>, IEnumerable<Service>>(
                     (result ?? throw new InvalidOperationException()).ToList());
