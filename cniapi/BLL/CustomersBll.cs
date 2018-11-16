@@ -75,5 +75,30 @@ namespace cniapi.BLL
                 return returnList;
             }
         }
+
+        public CustomerStats ReadCustomerStats()
+        {
+            using (var db = DbDelegate())
+            {
+                var stats = new CustomerStats();
+
+                stats.Active = db.Set<CustomerDAL>().Where(c => c.Status == "A").Count();
+                stats.Total = db.Set<CustomerDAL>().Count();
+                stats.WithEmail = db.Set<CustomerDAL>().Where(c => !string.IsNullOrEmpty(c.Email)).Count();
+                stats.WithBankDraft = db.Set<CustomerDAL>().Where(c => c.DraftActive == "Y").Count();
+                stats.WithBudgetPayments = db.Set<CustomerDAL>().Where(c => c.BudgetPymtAmt > 0).Count();
+                return stats;
+            }
+        }
+
+        public IEnumerable<int> ReadRoutes()
+        {
+            using (var db = DbDelegate())
+            {
+
+                var x = db.Set<CustomerDAL>().Select(r => new { r.Route }).Distinct();
+                return null;
+            }
+        }
     }
 }

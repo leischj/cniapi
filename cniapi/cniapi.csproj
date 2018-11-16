@@ -186,6 +186,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Customer.cs" />
+    <Compile Include="Models\CustomerStats.cs" />
     <Compile Include="Models\History.cs" />
     <Compile Include="Models\PmtEntry.cs" />
     <Compile Include="Models\Reading.cs" />

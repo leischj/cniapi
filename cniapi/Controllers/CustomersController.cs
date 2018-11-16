@@ -53,5 +53,19 @@ namespace cniapi.Controllers
         {
             return _customersBll.ReadServices(id);
         }
+
+        [HttpGet]
+        [Route("stats")]
+        public CustomerStats GetCustomerStats()
+        {
+            return _customersBll.ReadCustomerStats();
+        }
+
+        [HttpGet]
+        [Route("routes")]
+        public IEnumerable<int> GetRoutes()
+        {
+            return _customersBll.ReadRoutes();
+        }
     }
 }
