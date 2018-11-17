@@ -87,6 +87,11 @@ namespace cniapi.BLL
                 stats.WithEmail = db.Set<CustomerDAL>().Where(c => !string.IsNullOrEmpty(c.Email)).Count();
                 stats.WithBankDraft = db.Set<CustomerDAL>().Where(c => c.DraftActive == "Y").Count();
                 stats.WithBudgetPayments = db.Set<CustomerDAL>().Where(c => c.BudgetPymtAmt > 0).Count();
+                stats.PaidInFull = db.Set<CustomerDAL>().Where(c => c.CurrentDue == 0).Count();
+                stats.CurrentDue = db.Set<CustomerDAL>().Where(c => c.CurrentDue > 0).Count();
+                stats.PastDue = db.Set<CustomerDAL>().Where(c => c.PastDue > 0).Count();
+                stats.TotalPastDue = db.Set<CustomerDAL>().Select(t => t.PastDue ?? 0).Sum();
+                stats.AveragePastDue = stats.TotalPastDue / stats.PastDue;
                 return stats;
             }
         }
@@ -95,10 +100,72 @@ namespace cniapi.BLL
         {
             using (var db = DbDelegate())
             {
-                IEnumerable<int?> set =  db.Set<CustomerDAL>().Select(r => r.Route).Distinct().ToList();
-                // var x = db.Set<CustomerDAL>().Select(r => new { r.Route }).Distinct();
-                return set;
+                return db.Set<CustomerDAL>().Select(r => r.Route).Distinct().ToList();
             }
         }
+
+        public IEnumerable<string> ReadCities()
+        {
+            using (var db = DbDelegate())
+            {
+                return db.Set<CustomerDAL>().Select(r => r.BillCity).Distinct().ToList().OrderBy(s => s);
+            }
+        }
+
+        public IEnumerable<string> ReadStates()
+        {
+            using (var db = DbDelegate())
+            {
+                return db.Set<CustomerDAL>().Select(r => r.BillState).Distinct().ToList().OrderBy(s => s);
+            }
+        }
+
+        public IEnumerable<DateTime?> ReadBillDates()
+        {
+            using (var db = DbDelegate())
+            {
+                return db.Set<CustomerDAL>().Select(r => r.LateDate).Distinct().ToList();
+            }
+        }
+
+        public int ReadRouteCustomerCount(int route)
+        {
+            using (var db = DbDelegate())
+            {
+
+                return db.Set<CustomerDAL>().Where(c => c.Route == route).Count();
+      
+            }
+
+        }
+
+        public int ReadBillingCycleCustomerCount(DateTime cycle)
+        {
+            using (var db = DbDelegate())
+            {
+                return db.Set<CustomerDAL>().Where(c => c.LateDate == cycle).Count();
+            }
+        }
+        public int ReadCityCustomerCount(string city)
+        {
+            using (var db = DbDelegate())
+            {
+
+                return db.Set<CustomerDAL>().Where(c => c.BillCity.ToLower() == city.ToLower()).Count();
+                
+            }
+
+        }
+
+        public int ReadStateCustomerCount(string state)
+        {
+            using (var db = DbDelegate())
+            {
+
+                return db.Set<CustomerDAL>().Where(c => c.BillState.ToLower() == state.ToLower()).Count();
+            }
+
+        }
+
     }
 }

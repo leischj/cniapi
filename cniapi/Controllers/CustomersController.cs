@@ -63,9 +63,59 @@ namespace cniapi.Controllers
 
         [HttpGet]
         [Route("routes")]
-        public IEnumerable<int> GetRoutes()
+        public IEnumerable<int?> GetRoutes()
         {
             return _customersBll.ReadRoutes();
+        }
+
+        [HttpGet]
+        [Route("cities")]
+        public IEnumerable<string> GetCities()
+        {
+            return _customersBll.ReadCities();
+        }
+
+        [HttpGet]
+        [Route("states")]
+        public IEnumerable<string> GetStates()
+        {
+            return _customersBll.ReadStates();
+        }
+
+        [HttpGet]
+        [Route("cycles")]
+        public IEnumerable<DateTime?> GetCycles()
+        {
+            return _customersBll.ReadBillDates();
+        }
+
+
+        [HttpGet]
+        [Route("route/{route}/count")]
+        public int GetCustomersForRoute(int route)
+        {
+            return _customersBll.ReadRouteCustomerCount(route);
+        }
+
+        [HttpGet]
+        [Route("cycles/{cycle}/count")]
+        public int GetCustomersForCycles(DateTime cycle)
+        {
+            return _customersBll.ReadBillingCycleCustomerCount(cycle);
+        }
+
+        [HttpGet]
+        [Route("city/{city}/count")]
+        public int GetCustomersForCity(string city)
+        {
+            return _customersBll.ReadCityCustomerCount(city);
+        }
+
+        [HttpGet]
+        [Route("state/{state}/count")]
+        public int GetCustomersForState(string state)
+        {
+            return _customersBll.ReadStateCustomerCount(state);
         }
     }
 }
