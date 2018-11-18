@@ -117,5 +117,12 @@ namespace cniapi.Controllers
         {
             return _customersBll.ReadStateCustomerCount(state);
         }
+
+        [HttpGet]
+        [Route("service-deposits")]
+        public IEnumerable<ServiceUsage> GetServiceDeposits()
+        {
+            return _customersBll.ReadDepositsByService();
+        }
     }
 }

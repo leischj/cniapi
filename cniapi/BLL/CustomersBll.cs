@@ -92,6 +92,7 @@ namespace cniapi.BLL
                 stats.PastDue = db.Set<CustomerDAL>().Where(c => c.PastDue > 0).Count();
                 stats.TotalPastDue = db.Set<CustomerDAL>().Select(t => t.PastDue ?? 0).Sum();
                 stats.AveragePastDue = stats.TotalPastDue / stats.PastDue;
+                stats.ErrorPayments = db.Set<PmtEntryDAL>().Where(c => c.Status == 99).Count();
                 return stats;
             }
         }
@@ -167,5 +168,26 @@ namespace cniapi.BLL
 
         }
 
+        public IEnumerable<ServiceUsage> ReadDepositsByService()
+        {
+            using (var db = DbDelegate())
+            {
+                var services = db.Set<ServiceDAL>().Select(r => r.SrvcType).Distinct().ToList().OrderBy(s => s);
+                List<ServiceUsage> ret = new List<ServiceUsage>(services.Count());
+                foreach (string service in services)
+                {
+                    var item = new ServiceUsage();
+                    item.ServiceType = service;
+                    var srvcOfType = db.Set<ServiceDAL>().Where(r => r.SrvcType == service);
+                    item.Count = srvcOfType.Count();
+                    foreach (ServiceDAL svc in srvcOfType)
+                    {
+                        item.DepositAmount += svc.DepositAmt;
+                    }
+                    ret.Add(item);
+                }
+                return ret;
+            }
+        }
     }
 }

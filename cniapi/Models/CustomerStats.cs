@@ -18,6 +18,6 @@ namespace cniapi.Models
         public double TotalPastDue { get; set; }
         public double AveragePastDue { get; set; }
 
-
+        public int ErrorPayments { get; set; }
     }
 }
