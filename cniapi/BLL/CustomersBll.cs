@@ -180,10 +180,7 @@ namespace cniapi.BLL
                     item.ServiceType = service;
                     var srvcOfType = db.Set<ServiceDAL>().Where(r => r.SrvcType == service);
                     item.Count = srvcOfType.Count();
-                    foreach (ServiceDAL svc in srvcOfType)
-                    {
-                        item.DepositAmount += svc.DepositAmt;
-                    }
+                    item.DepositAmount = db.Set<ServiceDAL>().Where(r => r.SrvcType == service).Sum(r => r.DepositAmt);
                     ret.Add(item);
                 }
                 return ret;
