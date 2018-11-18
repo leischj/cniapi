@@ -186,5 +186,28 @@ namespace cniapi.BLL
                 return ret;
             }
         }
+
+        public IEnumerable<KeyValuePair<string, string> > ReadTotalPaymentsLast12Months()
+        {
+            using (var db = DbDelegate())
+            {
+                var ret = new List<KeyValuePair<string, string>>();
+                var thisMonth = DateTime.Now;
+                for (int i = 1; i <= 12; ++i)
+                {
+                    var past = thisMonth.AddMonths(i * -1);
+                    var firstDayOfMonth = new DateTime(past.Year, past.Month, 1);
+                    var lastDayOfMonth = firstDayOfMonth.AddMonths(1).AddSeconds(-1);
+                    var sum = db.Set<PmtEntryDAL>().Where(r => r.ExportDate != null
+                                                        && r.ExportDate >= firstDayOfMonth
+                                                        && r.ExportDate <= lastDayOfMonth).Sum(r => r.PmtAmount);
+                    var kv = new KeyValuePair<string, string>(firstDayOfMonth.ToString("MMM yyyy"), sum.ToString());
+                    ret.Add(kv);
+                }
+
+                return ret;
+            }
+
+        }
     }
 }

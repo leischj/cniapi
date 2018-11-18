@@ -124,5 +124,12 @@ namespace cniapi.Controllers
         {
             return _customersBll.ReadDepositsByService();
         }
+
+        [HttpGet]
+        [Route("payments-last-12-months")]
+        public IEnumerable<KeyValuePair<string, string>> GetTotalPaymentsLast12Months()
+        {
+            return _customersBll.ReadTotalPaymentsLast12Months();
+        }
     }
 }
