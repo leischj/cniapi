@@ -188,9 +188,11 @@
     <Compile Include="Models\Customer.cs" />
     <Compile Include="Models\CustomerStats.cs" />
     <Compile Include="Models\History.cs" />
+    <Compile Include="Models\KeyValue.cs" />
     <Compile Include="Models\PmtEntry.cs" />
     <Compile Include="Models\Reading.cs" />
     <Compile Include="Models\Service.cs" />
+    <Compile Include="Models\ServiceUsage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
